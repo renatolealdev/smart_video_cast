@@ -1,13 +1,13 @@
 package com.smarthost.smart_video_cast
 
-import androidx.annotation.NonNull;
+import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
-/** FlutterVideoCastPlugin */
+/** SmartVideoCastPlugin */
 public class SmartVideoCastPlugin: FlutterPlugin, ActivityAware {
   private lateinit var chromeCastFactory: ChromeCastFactory
 
@@ -43,7 +43,7 @@ public class SmartVideoCastPlugin: FlutterPlugin, ActivityAware {
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-    
+    // Cleanup resources if needed
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -51,14 +51,14 @@ public class SmartVideoCastPlugin: FlutterPlugin, ActivityAware {
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-
+    // Temporary cleanup while waiting for new activity
   }
 
   override fun onDetachedFromActivity() {
-
+    // Activity is no longer attached, cleanup
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-
+    chromeCastFactory.activity = binding.activity
   }
 }

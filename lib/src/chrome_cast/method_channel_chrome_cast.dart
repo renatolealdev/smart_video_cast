@@ -36,78 +36,134 @@ class MethodChannelChromeCast extends ChromeCastPlatform {
       channel = MethodChannel('smart_video_cast/chromeCast_$id');
       channel.setMethodCallHandler((call) => _handleMethodCall(call, id));
       _channels[id] = channel;
+    } else {
+      channel = _channels[id];
     }
     return channel!.invokeMethod<void>('chromeCast#wait');
   }
 
   @override
-  Future<void> addSessionListener({int? id}) {
-    return channel(id!)!.invokeMethod<void>('chromeCast#addSessionListener');
+  Future<void> addSessionListener({required int id}) {
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<void>('chromeCast#addSessionListener');
   }
 
   @override
-  Future<void> removeSessionListener({int? id}) {
-    return channel(id!)!.invokeMethod<void>('chromeCast#removeSessionListener');
+  Future<void> removeSessionListener({required int id}) {
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<void>('chromeCast#removeSessionListener');
   }
 
   @override
-  Stream<SessionStartedEvent> onSessionStarted({int? id}) {
-    return _events(id!).whereType<SessionStartedEvent>();
+  Stream<SessionStartedEvent> onSessionStarted({required int id}) {
+    return _events(id).whereType<SessionStartedEvent>();
   }
 
   @override
-  Stream<SessionEndedEvent> onSessionEnded({int? id}) {
-    return _events(id!).whereType<SessionEndedEvent>();
+  Stream<SessionEndedEvent> onSessionEnded({required int id}) {
+    return _events(id).whereType<SessionEndedEvent>();
   }
 
   @override
-  Stream<RequestDidCompleteEvent> onRequestCompleted({int? id}) {
-    return _events(id!).whereType<RequestDidCompleteEvent>();
+  Stream<RequestDidCompleteEvent> onRequestCompleted({required int id}) {
+    return _events(id).whereType<RequestDidCompleteEvent>();
   }
 
   @override
-  Stream<RequestDidFailEvent> onRequestFailed({int? id}) {
-    return _events(id!).whereType<RequestDidFailEvent>();
+  Stream<RequestDidFailEvent> onRequestFailed({required int id}) {
+    return _events(id).whereType<RequestDidFailEvent>();
   }
 
   @override
   Future<void> loadMedia(String url, {required int id}) {
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
     final Map<String, dynamic> args = {'url': url};
-    return channel(id)!.invokeMethod<void>('chromeCast#loadMedia', args);
+    return channel.invokeMethod<void>('chromeCast#loadMedia', args);
   }
 
   @override
   Future<void> play({required int id}) {
-    return channel(id)!.invokeMethod<void>('chromeCast#play');
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<void>('chromeCast#play');
   }
 
   @override
   Future<void> pause({required int id}) {
-    return channel(id)!.invokeMethod<void>('chromeCast#pause');
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<void>('chromeCast#pause');
   }
 
   @override
   Future<void> seek(bool relative, double interval, {required int id}) {
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
     final Map<String, dynamic> args = {
       'relative': relative,
       'interval': interval
     };
-    return channel(id)!.invokeMethod<void>('chromeCast#seek', args);
+    return channel.invokeMethod<void>('chromeCast#seek', args);
   }
 
   @override
-  Future<void> stop({int? id}) {
-    return channel(id!)!.invokeMethod<void>('chromeCast#stop');
+  Future<void> stop({required int id}) {
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<void>('chromeCast#stop');
   }
 
   @override
   Future<bool?> isConnected({required int id}) {
-    return channel(id)!.invokeMethod<bool>('chromeCast#isConnected');
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<bool>('chromeCast#isConnected');
   }
 
   @override
   Future<bool?> isPlaying({required int id}) {
-    return channel(id)!.invokeMethod<bool>('chromeCast#isPlaying');
+    final channel = _channels[id];
+    if (channel == null) {
+      throw PlatformException(
+          code: 'UNAVAILABLE',
+          message: 'ChromeCast is not available for specified id: $id');
+    }
+    return channel.invokeMethod<bool>('chromeCast#isPlaying');
   }
 
   Future<dynamic> _handleMethodCall(MethodCall call, int id) async {

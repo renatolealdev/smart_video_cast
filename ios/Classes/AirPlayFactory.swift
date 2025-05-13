@@ -8,14 +8,15 @@
 import Flutter
 
 public class AirPlayFactory: NSObject, FlutterPlatformViewFactory {
-    let registrar: FlutterPluginRegistrar
+    let messenger: FlutterBinaryMessenger
 
-    init(registrar: FlutterPluginRegistrar) {
-        self.registrar = registrar
+    init(messenger: FlutterBinaryMessenger) {
+        self.messenger = messenger
+        super.init()
     }
 
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        return AirPlayController(withFrame: frame, viewIdentifier: viewId, arguments: args, registrar: registrar)
+        return AirPlayController(withFrame: frame, viewIdentifier: viewId, arguments: args, messenger: messenger)
     }
 
     public func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {

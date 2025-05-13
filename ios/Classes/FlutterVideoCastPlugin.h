@@ -1,4 +1,4 @@
 #import <Flutter/Flutter.h>
 
-@interface FlutterVideoCastPlugin : NSObject<FlutterPlugin>
+@interface SmartVideoCastPlugin : NSObject<FlutterPlugin>
 @end

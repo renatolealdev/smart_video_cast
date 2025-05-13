@@ -1,21 +1,22 @@
 name: smart_video_cast
 description: smart_video_cast let you discover cast devices like Chrome Cast and Apple TV and connect to them.
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/smarthost-tr/smart_video_cast
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=2.2.3"
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  stream_transform: ^2.0.0
+  stream_transform: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
 
 flutter:
   plugin:

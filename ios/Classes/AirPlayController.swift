@@ -23,9 +23,9 @@ public class AirPlayController: NSObject, FlutterPlatformView {
         withFrame frame: CGRect,
         viewIdentifier viewId: Int64,
         arguments args: Any?,
-        registrar: FlutterPluginRegistrar
+        messenger: FlutterBinaryMessenger
     ) {
-        self.channel = FlutterMethodChannel(name: "smart_video_cast/airPlay_\(viewId)", binaryMessenger: registrar.messenger())
+        self.channel = FlutterMethodChannel(name: "smart_video_cast/airPlay_\(viewId)", binaryMessenger: messenger)
         self.airPlayButton = AVRoutePickerView(frame: frame)
         super.init()
         self.configure(arguments: args)
@@ -92,12 +92,10 @@ public class AirPlayController: NSObject, FlutterPlatformView {
         switch call.method {
         case "airPlay#wait":
             result(nil)
-            break
         case "airPlay#isConnected":
             result(isConnected())
-            break
         default:
-            break
+            result(FlutterMethodNotImplemented)
         }
     }
 

@@ -22,9 +22,9 @@ class ChromeCastController: NSObject, FlutterPlatformView {
         withFrame frame: CGRect,
         viewIdentifier viewId: Int64,
         arguments args: Any?,
-        registrar: FlutterPluginRegistrar
+        messenger: FlutterBinaryMessenger
     ) {
-        self.channel = FlutterMethodChannel(name: "smart_video_cast/chromeCast_\(viewId)", binaryMessenger: registrar.messenger())
+        self.channel = FlutterMethodChannel(name: "smart_video_cast/chromeCast_\(viewId)", binaryMessenger: messenger)
         self.chromeCastButton = GCKUICastButton(frame: frame)
         super.init()
         self.configure(arguments: args)
@@ -71,33 +71,25 @@ class ChromeCastController: NSObject, FlutterPlatformView {
         switch call.method {
         case "chromeCast#wait":
             result(nil)
-            break
         case "chromeCast#loadMedia":
             loadMedia(args: call.arguments)
             result(nil)
-            break
         case "chromeCast#play":
             play()
             result(nil)
-            break
         case "chromeCast#pause":
             pause()
             result(nil)
-            break
         case "chromeCast#seek":
             seek(args: call.arguments)
             result(nil)
-            break
         case "chromeCast#stop":
             stop()
             result(nil)
-            break
         case "chromeCast#isConnected":
             result(isConnected())
-            break
         case "chromeCast#isPlaying":
             result(isPlaying())
-            break
         case "chromeCast#addSessionListener":
             addSessionListener()
             result(nil)
@@ -105,8 +97,7 @@ class ChromeCastController: NSObject, FlutterPlatformView {
             removeSessionListener()
             result(nil)
         default:
-            result(nil)
-            break
+            result(FlutterMethodNotImplemented)
         }
     }
 
